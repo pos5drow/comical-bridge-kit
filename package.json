@@ -1,0 +1,14 @@
+{
+  "name": "comical-bridge-kit",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Site-agnostic scraping helpers shared by the pos5drow Comical bridge repos. No @comical/* imports, no site code.",
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  "files": ["src"],
+  "scripts": {
+    "test": "bun test"
+  }
+}
