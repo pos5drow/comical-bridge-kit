@@ -17,6 +17,7 @@ agnostic, and so does this.
 | `status` | publication status words (English and Spanish) → `ongoing`/`completed`/`hiatus`/`cancelled`/`unknown` |
 | `text` | `fold`: lowercase and strip accents, with a fallback for engines without `String.prototype.normalize` |
 | `md5` | MD5 of a string's UTF-8 bytes as hex, for sites that sign request parameters with it (not for security) |
+| `aes` | `aesCbcDecrypt` (AES-128/192/256-CBC) plus `stripZeroPadding` / `stripPkcs7`, for data a page script decrypts with a key in plain sight (not for security) |
 
 ## Use
 
