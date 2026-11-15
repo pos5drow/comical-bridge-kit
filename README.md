@@ -16,6 +16,7 @@ agnostic, and so does this.
 | `chapters` | chapter numbers from labels ("Vol.2 Ch.15", "Capítulo 40") |
 | `status` | publication status words (English and Spanish) → `ongoing`/`completed`/`hiatus`/`cancelled`/`unknown` |
 | `text` | `fold`: lowercase and strip accents, with a fallback for engines without `String.prototype.normalize` |
+| `md5` | MD5 of a string's UTF-8 bytes as hex, for sites that sign request parameters with it (not for security) |
 
 ## Use
 
