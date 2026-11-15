@@ -4,7 +4,10 @@
  */
 
 const S = [7, 12, 17, 22, 7, 12, 17, 22, 7, 12, 17, 22, 7, 12, 17, 22, 5, 9, 14, 20, 5, 9, 14, 20, 5, 9, 14, 20, 5, 9, 14, 20, 4, 11, 16, 23, 4, 11, 16, 23, 4, 11, 16, 23, 4, 11, 16, 23, 6, 10, 15, 21, 6, 10, 15, 21, 6, 10, 15, 21, 6, 10, 15, 21];
-const K = Array.from({ length: 64 }, (_, i) => Math.floor(Math.abs(Math.sin(i + 1)) * 2 ** 32) >>> 0);
+// Built on first use, not at load: a top-level call can't be tree-shaken, and would ride along in
+// every bundle that imports the kit, changing bridges that never call md5.
+let K: number[] | undefined;
+const constants = () => (K ??= Array.from({ length: 64 }, (_, i) => Math.floor(Math.abs(Math.sin(i + 1)) * 2 ** 32) >>> 0));
 
 function utf8(text: string): Uint8Array {
   const out: number[] = [];
@@ -38,6 +41,7 @@ export function md5(text: string): string {
   let b0 = 0xefcdab89;
   let c0 = 0x98badcfe;
   let d0 = 0x10325476;
+  const k = constants();
   const m = new Uint32Array(16);
   for (let off = 0; off < total; off += 64) {
     for (let i = 0; i < 16; i++) {
@@ -55,7 +59,7 @@ export function md5(text: string): string {
       const t = d;
       d = c;
       c = b;
-      const x = (a + f + K[i]! + m[g]!) >>> 0;
+      const x = (a + f + k[i]! + m[g]!) >>> 0;
       b = (b + ((x << S[i]!) | (x >>> (32 - S[i]!)))) >>> 0;
       a = t;
     }
